@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchNewsById } from "../../services/fetchNewsById";
 import News from "../../components/News/News";
 // import s from "./NewsPage.module.css"
@@ -8,7 +8,7 @@ import News from "../../components/News/News";
 const NewsPage = (props) => {
 
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const currentPage = useSelector(state => state.news.currentPage);
@@ -18,13 +18,23 @@ const NewsPage = (props) => {
     dispatch(fetchNewsById(id));
   }, [])
 
-  return (
+  if (currentPageStatus === "pending") return <h1>Loading...</h1>;
+  if (currentPageStatus === "rejected") return <h1>Something went wrong</h1>;
+  if (currentPageStatus === "fulfilled") return (
     <div>
-      { currentPageStatus === "pending" ? <h1>Loading...</h1> : "" }
-      { currentPageStatus === "rejected" ? "" : "" }
+      <button onClick={() => navigate("/")}>Back</button>
       <News news={currentPage} />
     </div>
   )
+
+  // return (
+  //   <div>
+  //     { currentPageStatus === "pending" ? <h1>Loading...</h1> : "" }
+  //     { currentPageStatus === "rejected" ? "" : "" }
+  //     <button onClick={() => navigate("/")}>Back</button>
+  //     <News news={currentPage} />
+  //   </div>
+  // )
 };
 
 export default NewsPage;
