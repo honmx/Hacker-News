@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchNews } from "./services/fetchNews";
+import s from "./App.module.css";
+import NewsListPage from "./pages/NewsListPage/NewsListPage";
+import NewsPage from "./pages/NewsPage/NewsPage";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
 
-function App() {
+const App = (props) => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNews());
+
+    const interval = setInterval(() => {
+      dispatch(fetchNews());
+    }, 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/" element={<Layout />} >
+          <Route index element={<NewsListPage />} />
+          <Route path=":id" element={<NewsPage />} />
+        </Route>
+      </Routes>
     </div>
-  );
-}
+  )
+};
 
 export default App;
