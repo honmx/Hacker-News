@@ -16,7 +16,10 @@ const NewsPage = (props) => {
 
   useEffect(() => {
     dispatch(fetchNewsById(id));
-  }, [])
+  }, [dispatch, id]);
+
+  console.log("=POST==DATA=====================================")
+  console.log(currentPage);
 
   if (currentPageStatus === "pending") return <h1>Loading...</h1>;
   if (currentPageStatus === "rejected") return <h1>Something went wrong</h1>;

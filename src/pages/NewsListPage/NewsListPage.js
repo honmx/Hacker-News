@@ -2,7 +2,6 @@ import React from "react"
 import NewsList from "../../components/NewsList/NewsList";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../../services/fetchNews";
-import { useNavigate } from "react-router-dom";
 // import s from "./NewListPage.module.css"
 
 const NewListPage = (props) => {
