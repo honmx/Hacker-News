@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "./services/fetchNews";
-import s from "./App.module.css";
+import s from "./App.css";
 import NewsListPage from "./pages/NewsListPage/NewsListPage";
 import NewsPage from "./pages/NewsPage/NewsPage";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 
 const App = (props) => {
+
+  const idOfNewsWithALotCommentsToTest = 34475743;
 
   const dispatch = useDispatch();
 

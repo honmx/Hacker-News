@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchComments } from "../../services/fetchComments";
 import { fetchNews } from "../../services/fetchNews";
 import { fetchNewsById } from "../../services/fetchNewsById";
 
@@ -9,10 +10,15 @@ export const newsSlice = createSlice({
     newsStatus: "",
     currentPage: {},
     currentPageStatus: "",
+    currentPageComments: [],
+    currentPageCommentsStatus: ""
   },
   reducers: {
-    setNews(state, action) {
-      state.news = action.payload;
+    setComments(state, action) {
+      state.currentPageComments = action.payload;
+    },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -29,6 +35,7 @@ export const newsSlice = createSlice({
     builder.addCase(fetchNewsById.fulfilled, (state, action) => {
       state.currentPageStatus = "fulfilled";
       state.currentPage = action.payload;
+      // debugger;
     });
     builder.addCase(fetchNewsById.pending, (state) => {
       state.currentPageStatus = "pending";
@@ -36,8 +43,16 @@ export const newsSlice = createSlice({
     builder.addCase(fetchNewsById.rejected, (state) => {
       state.currentPageStatus = "rejected";
     });
+    builder.addCase(fetchComments.fulfilled, (state, action) => {
+      state.currentPageCommentsStatus = "fulfilled";
+      // debugger;
+      state.currentPageComments = action.payload;
+    });
+    builder.addCase(fetchComments.pending, (state, action) => {
+      state.currentPageCommentsStatus = "pending";
+    });
   }
 });
 
-export const { setNews } = newsSlice.actions;
+export const { setComments, setCurrentPage } = newsSlice.actions;
 export default newsSlice.reducer;
