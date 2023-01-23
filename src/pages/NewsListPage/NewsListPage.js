@@ -28,11 +28,14 @@ const NewListPage = (props) => {
 
   useEffect(() => {
     setFilteredNews(news.filter(item => {
-      return item.title.includes(filter);
+      return item.title.toLowerCase().includes(filter.toLowerCase());
     }))
   }, [filter, news]);
 
-  if (status === "pending") return <CircularProgress color="primary" />;
+  if (status === "pending") return <CircularProgress sx={{
+    display: "block",
+    marginInline: "auto",
+  }} color="primary" />;
 
   if (status === "rejected") return <h1>Something went wrong</h1>;
 

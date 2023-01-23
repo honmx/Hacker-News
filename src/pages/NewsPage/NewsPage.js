@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMatch, useNavigate, useParams } from "react-router-dom";
 import { fetchNewsById } from "../../services/fetchNewsById";
 import News from "../../components/News/News";
+import { Box, CircularProgress, IconButton, Stack } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import { Container } from "@mui/system";
 // import s from "./NewsPage.module.css"
 
 const NewsPage = (props) => {
@@ -26,13 +29,31 @@ const NewsPage = (props) => {
   // console.log("=POST==DATA=====================================")
   // console.log(currentPage);
 
-  if (currentPageStatus === "pending") return <h1>Loading...</h1>;
-  if (currentPageStatus === "rejected") return <h1>Something went wrong</h1>;
+  if (currentPageStatus === "pending") return (
+    <Container sx={{
+        marginInline: "auto !important",
+        width: 50,
+        height: 50
+      }}
+    >
+      <CircularProgress />
+    </Container>
+  );
+  if (currentPageStatus === "rejected") return <h1>Something went   wrong</h1>;
   if (currentPageStatus === "fulfilled") return (
-    <div>
-      <button onClick={() => navigate("/")}>Back</button>
+    <Stack direction="row" sx={{mb: 4}}>
+      <IconButton 
+        onClick={() => navigate("/")}
+        sx={{
+          width: 50,
+          height: 50,
+          mr: 5
+        }}
+      >
+        <ArrowBackIcon />
+      </IconButton>
       <News news={currentPage} />
-    </div>
+    </Stack>
   )
 
   // return (

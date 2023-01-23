@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { convert } from "../../heplers/convert";
@@ -12,15 +12,28 @@ const Comment = (props) => {
   const rootComments = useSelector(state => state.news.currentPage.kids);
   const dispatch = useDispatch();
 
-  const text = props.text
+  
+  
+  
+  const text = !props.deleted 
+  ?
+  props.text
     .replace(/&#?(\w+);/gi, (match) => convert(match))
     .replace(/<(\w+)\/?>/g, " ")
     .replace(/  /g, " ")
+  :
+  "";
 
   const handleClick = () => {
     fetch(props.kids)
       .then(res => setChildrenComments(res));
   }
+
+  const btn = !props.deleted &&
+  props.kids &&
+  <button onClick={handleClick}>{props.kids.length} replies</button>
+  
+  // debugger;
 
   // console.log(childrenComments);
 

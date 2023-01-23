@@ -1,16 +1,51 @@
-import { Paper } from "@mui/material";
+import { Avatar, Paper, Stack, Box, Typography, Container } from "@mui/material";
 import React from "react"
 import { NavLink } from "react-router-dom";
+import { getTimeDifference } from "../../heplers/getTimeDifference";
 import s from "./NewsItem.module.css"
 
 const NewsItem = ({ news }) => {
+
+  const timeDifference = getTimeDifference(new Date().getTime(), news.time * 1000);
+
   return (
-    <Paper
-      elevation={7}
-      sx={{p: 3}}
+    <NavLink
+      to={`/${news.id}`}
+      style={{textDecoration: "none"}}
     >
-      <NavLink to={`/${news.id}`}>{ news.title }</NavLink>
-    </Paper>
+      <Paper
+        elevation={7}
+        sx={{
+          p: 3,
+        }}
+      >
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{
+            width: "130px",
+            position: "relative"
+          }}>
+            <Avatar></Avatar>
+            <Typography variant="body2" sx={{position: "absolute"}}>{news.by}</Typography>
+          </Box>
+          <Container>
+            <Stack sx={{position: "relative"}}>
+              <Typography>{news.title}</Typography>
+              <Typography sx={{mb: -1}}>{timeDifference}</Typography>
+            </Stack>
+          </Container>
+          <Box sx={{justifySelf: "flex-end"}}>
+              <Typography>{news.score}</Typography>
+          </Box>
+        </Stack>
+      </Paper>
+    </NavLink>
   )
 };
 

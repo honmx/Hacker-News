@@ -10,7 +10,9 @@ const Layout = (props) => {
       <Header />
       <Container 
         maxWidth="md"
-        sx={{mt: 3}}
+        sx={{
+          mt: 3,
+        }}
       >
         <Outlet />
       </Container>

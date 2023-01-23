@@ -1,3 +1,5 @@
+import { Stack, Paper, IconButton, Box, Typography, Avatar, Link } from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh"
 import React from "react"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -17,7 +19,7 @@ const News = ({ news }) => {
   // console.log(news);
 
   const comments = useSelector(state => state.news.currentPageComments);
-  
+
   const dispatch = useDispatch();
   // debugger;
   useEffect(() => {
@@ -27,16 +29,65 @@ const News = ({ news }) => {
 
 
   // debugger;
+
+
   return (
-    <div>
-      News:
-      { news.title }
-      <br />
-      <button onClick={() => dispatch(fetchComments(news.kids))}>Update comments</button>
-      <br />
-      Comments:
-      <Comments comments={comments} />
-    </div>
+    <Paper
+      elevation={12}
+      sx={{
+        width: "100%",
+        p: 5,
+        borderRadius: 5
+      }}
+    >
+      <Stack spacing={3}>
+        {/* news -> */}
+        <Stack spacing={3}>
+          <Stack
+            direction="row"
+            spacing={2}
+            sx={{ alignItems: "flex-end" }}
+          >
+            <Typography variant="subtitle2">By:</Typography>
+            <Avatar />
+            <Typography variant="subtitle2">{news.by}</Typography>
+          </Stack>
+          <Typography variant="h5">{news.title}</Typography>
+          <Link
+            href={news.url}
+            target="_blank"
+            underline="hover"
+            sx={{ width: 60 }}
+          >
+            Read all
+          </Link>
+          <Typography
+            variant="subtitle2"
+            sx={{ marginLeft: "auto !important" }}
+          >
+            {new Date(news.time * 1000).toLocaleString()}
+          </Typography>
+        </Stack>
+        {/* comments  -> */}
+        <Stack
+          direction="row"
+          spacing={3}
+          sx={{ alignItems: "center" }}
+        >
+          <IconButton
+            onClick={() => dispatch(fetchComments(news.kids))}
+            sx={{
+              width: 50,
+              height: 50
+            }}
+          >
+            <RefreshIcon />
+          </IconButton>
+          <Typography>Comments:</Typography>
+        </Stack>
+        <Comments comments={comments} />
+      </Stack>
+    </Paper>
   )
 };
 
