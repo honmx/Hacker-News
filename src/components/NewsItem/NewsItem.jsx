@@ -11,7 +11,7 @@ const NewsItem = ({ news }) => {
   return (
     <NavLink
       to={`/${news.id}`}
-      style={{textDecoration: "none"}}
+      style={{ textDecoration: "none" }}
     >
       <Paper
         elevation={7}
@@ -32,17 +32,24 @@ const NewsItem = ({ news }) => {
             position: "relative"
           }}>
             <Avatar></Avatar>
-            <Typography variant="body2" sx={{position: "absolute"}}>{news.by}</Typography>
+            <Typography variant="body2" sx={{ position: "absolute" }}>{news.by}</Typography>
           </Box>
           <Container>
-            <Stack sx={{position: "relative"}}>
+            <Stack sx={{ position: "relative" }}>
               <Typography>{news.title}</Typography>
-              <Typography sx={{mb: -1}}>{timeDifference}</Typography>
+              <Typography sx={{ mb: -1 }}>{timeDifference}</Typography>
             </Stack>
           </Container>
-          <Box sx={{justifySelf: "flex-end"}}>
-              <Typography>{news.score}</Typography>
-          </Box>
+          <Stack
+            spacing={-0.5}
+            sx={{
+              display: "flex",
+              alignItems: "flex-end"
+            }}
+          >
+            <Typography>Score</Typography>
+            <Typography>{news.score}</Typography>
+          </Stack>
         </Stack>
       </Paper>
     </NavLink>

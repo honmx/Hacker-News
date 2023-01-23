@@ -1,3 +1,4 @@
+import { List } from "@mui/material";
 import React from "react"
 import { useRef } from "react";
 import { useSelector } from "react-redux";
@@ -11,14 +12,14 @@ const Comments = ({ comments }) => {
   if (status === "pending") return <h1>Loading...</h1>
 
   return (
-    <ul>
+    <List>
       {
         comments.map(comment => {
           // debugger;
           return <Comment key={comment.id} {...comment} />
         })
       }
-    </ul>
+    </List>
   )
 };
 
