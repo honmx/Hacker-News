@@ -8,6 +8,7 @@ export const fetchNews = createAsyncThunk(
     const newsEesponse = await axios.get(`${url}/newstories.json`);
     const news = newsEesponse.data.slice(0, 100);
     
+    debugger;
     const promiseResponse = await Promise.all(news.map(async elem => {
       const res = await axios.get(`${url}/item/${elem}/.json`);
       return res.data;

@@ -1,8 +1,8 @@
 import { List } from "@mui/material";
 import React from "react"
 import { useSelector } from "react-redux";
-import CenteredLoading from "../CenteredLoading";
-import Comment from "../Comment/Comment";
+import CenteredLoading from "./CenteredLoading";
+import Comment from "./Comment";
 
 const Comments = ({ comments }) => {
  

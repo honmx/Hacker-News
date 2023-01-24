@@ -1,17 +1,15 @@
 import { Stack, Paper, IconButton, Box, Typography, Avatar, Link } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh"
 import React from "react"
-import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchComments } from "../../services/fetchComments";
-import Comments from "../Comments/Comments";
-import s from "./News.module.css"
+import { fetchComments } from "../services/fetchComments";
+import Comments from "./Comments";
 
 const News = ({ news }) => {
 
   const dispatch = useDispatch();
-  
+
   const comments = useSelector(state => state.news.currentPageComments);
 
   useEffect(() => {

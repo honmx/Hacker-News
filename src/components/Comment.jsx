@@ -2,13 +2,12 @@ import { Avatar, ListItem, ListItemButton, Typography, Box, Stack } from "@mui/m
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import React from "react"
 import { useState } from "react";
-import { convert } from "../../heplers/convert";
-import { fetch } from "../../services/fetchComments";
-import Comments from "../Comments/Comments";
+import { convert } from "../heplers/convert";
+import { fetch } from "../services/fetchComments";
+import Comments from "./Comments";
 
 const Comment = (props) => {
 
-  
   const [childrenComments, setChildrenComments] = useState([]);
 
   if (props.deleted) return null;

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "./services/fetchNews";
-import NewsListPage from "./pages/NewsListPage/NewsListPage";
-import NewsPage from "./pages/NewsPage/NewsPage";
+import NewsListPage from "./pages/NewsListPage";
+import NewsPage from "./pages/NewsPage";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import Layout from "./components/Layout";
 import "./App.css";
 
 // id of news with a lot comments to test: 34475743;

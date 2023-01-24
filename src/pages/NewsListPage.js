@@ -1,14 +1,14 @@
 import React, { useEffect } from "react"
-import NewsList from "../../components/NewsList/NewsList";
+import NewsList from "../components/NewsList";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchNews } from "../../services/fetchNews";
-import { setComments, setCurrentPage } from "../../store/slices/newsSlice";
+import { fetchNews } from "../services/fetchNews";
+import { setComments, setCurrentPage } from "../store/slices/newsSlice";
 import { IconButton, Container } from "@mui/material";
 import RefreshIcon from '@mui/icons-material/Refresh';
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "../components/SearchBar";
 import { Box } from "@mui/system";
-import CenteredLoading from "../../components/CenteredLoading";
+import CenteredLoading from "../components/CenteredLoading";
 
 const NewListPage = (props) => {
 

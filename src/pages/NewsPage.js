@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchNewsById } from "../../services/fetchNewsById";
-import News from "../../components/News/News";
+import { fetchNewsById } from "../services/fetchNewsById";
+import News from "../components/News";
 import { CircularProgress, IconButton, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { Container } from "@mui/system";
