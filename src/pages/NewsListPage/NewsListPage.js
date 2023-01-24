@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../../services/fetchNews";
 import { setComments, setCurrentPage } from "../../store/slices/newsSlice";
-import { IconButton, CircularProgress, Container } from "@mui/material";
+import { IconButton, Container } from "@mui/material";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SearchBar from "../../components/SearchBar";
 import { Box } from "@mui/system";
-// import s from "./NewListPage.module.css"
+import CenteredLoading from "../../components/CenteredLoading";
 
 const NewListPage = (props) => {
 
@@ -18,8 +18,6 @@ const NewListPage = (props) => {
 
   const [filter, setFilter] = useState("");
   const [filteredNews, setFilteredNews] = useState(news);
-
-  // debugger;
 
   useEffect(() => {
     dispatch(setCurrentPage({}));
@@ -32,15 +30,12 @@ const NewListPage = (props) => {
     }))
   }, [filter, news]);
 
-  if (status === "pending") return <CircularProgress sx={{
-    display: "block",
-    marginInline: "auto",
-  }} color="primary" />;
+  if (status === "pending") return <CenteredLoading />;
 
   if (status === "rejected") return <h1>Something went wrong</h1>;
 
   if (status === "fulfilled") return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{mb: 3}}>
       <Box
         sx={{
           display: "flex",
@@ -55,21 +50,12 @@ const NewListPage = (props) => {
           }}
           onClick={() => dispatch(fetchNews())}
         >
-          <RefreshIcon color="primary" />
+          <RefreshIcon />
         </IconButton>
       </Box>
       <NewsList news={filteredNews}/>
     </Container>
   )
-
-  // return (
-  //   <div>
-  //     { status === "pending" ? <h1>Loading...</h1> : "" }
-  //     { status === "rejected" ? "" : "" }
-  //     <button onClick={handleClick}>Refresh</button>
-  //     <NewsList />
-  //   </div>
-  // )
 };
 
 export default NewListPage;

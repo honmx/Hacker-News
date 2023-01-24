@@ -10,26 +10,13 @@ import s from "./News.module.css"
 
 const News = ({ news }) => {
 
-  // const [comments, setComments] = useState([]);
-
-  // const fetch = () => {
-  //   fetchComments(news.kids)
-  //     .then(res => setComments(res));
-  // }
-  // console.log(news);
-
+  const dispatch = useDispatch();
+  
   const comments = useSelector(state => state.news.currentPageComments);
 
-  const dispatch = useDispatch();
-  // debugger;
   useEffect(() => {
-    // debugger;
     dispatch(fetchComments(news.kids));
   }, [dispatch, news.kids]);
-
-
-  // debugger;
-
 
   return (
     <Paper

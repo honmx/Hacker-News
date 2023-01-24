@@ -1,21 +1,18 @@
 import { Avatar, ListItem, ListItemButton, Typography, Box, Stack } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { convert } from "../../heplers/convert";
-import { fetchComments, fetch } from "../../services/fetchComments";
+import { fetch } from "../../services/fetchComments";
 import Comments from "../Comments/Comments";
-// import s from "./Comment.module.css"
 
 const Comment = (props) => {
 
+  
   const [childrenComments, setChildrenComments] = useState([]);
-  const rootComments = useSelector(state => state.news.currentPage.kids);
-  const dispatch = useDispatch();
 
   if (props.deleted) return null;
-
+  
   const text = props.text
     .replace(/&#?(\w+);/gi, (match) => convert(match))
     .replace(/<(\w+)\/?>/g, " ")
@@ -26,23 +23,15 @@ const Comment = (props) => {
       .then(res => setChildrenComments(res));
   }
 
-  // const btn = !props.deleted &&
-  // props.kids &&
-  // <button onClick={handleClick}>{props.kids.length} replies</button>
-
-  // debugger;
-
-  console.log(props);
-
   return (
     <ListItem sx={{
       flexDirection: "column",
       alignItems: "flex-start",
       ml: 2,
-      // borderBottom: 1
+      pb: 0
     }}
     >
-      <Stack 
+      <Stack
         direction="row"
         spacing={1.5}
         sx={{
@@ -53,24 +42,23 @@ const Comment = (props) => {
         <Avatar />
         <Typography>{props.by}</Typography>
       </Stack>
-      <Typography>
-        {text}
-      </Typography>
+      <Box sx={{display: "flex"}}>
+        <Typography sx={{flexWrap: "wrap"}}>
+          {text}
+        </Typography>
+      </Box>
       {
         !props.deleted &&
         props.kids &&
         <ListItemButton
           onClick={handleClick}
           sx={{ p: 0.3, ml: 2 }}
-
         >
-          {props.kids.length} replies
+          {props.kids.length === 1 ? `1 reply` : `${props.kids.length} replies`}
           <ArrowDropDownIcon />
         </ListItemButton>
       }
-      {
-        <Comments comments={childrenComments} />
-      }
+      {<Comments comments={childrenComments} />}
     </ListItem>
   )
 };

@@ -35,7 +35,6 @@ export const newsSlice = createSlice({
     builder.addCase(fetchNewsById.fulfilled, (state, action) => {
       state.currentPageStatus = "fulfilled";
       state.currentPage = action.payload;
-      // debugger;
     });
     builder.addCase(fetchNewsById.pending, (state) => {
       state.currentPageStatus = "pending";
@@ -45,7 +44,6 @@ export const newsSlice = createSlice({
     });
     builder.addCase(fetchComments.fulfilled, (state, action) => {
       state.currentPageCommentsStatus = "fulfilled";
-      // debugger;
       state.currentPageComments = action.payload;
     });
     builder.addCase(fetchComments.pending, (state, action) => {

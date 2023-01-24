@@ -1,24 +1,18 @@
 import { List } from "@mui/material";
 import React from "react"
-import { useRef } from "react";
 import { useSelector } from "react-redux";
+import CenteredLoading from "../CenteredLoading";
 import Comment from "../Comment/Comment";
-// import s from "./Comments.module.css"
 
 const Comments = ({ comments }) => {
  
   const status = useSelector(state => state.news.currentPageCommentsStatus);
 
-  if (status === "pending") return <h1>Loading...</h1>
+  if (status === "pending") return <CenteredLoading />
 
   return (
-    <List>
-      {
-        comments.map(comment => {
-          // debugger;
-          return <Comment key={comment.id} {...comment} />
-        })
-      }
+    <List sx={{overflow: "hidden", pb: 0}}>
+      {comments.map(comment => <Comment key={comment.id} {...comment} />)}
     </List>
   )
 };

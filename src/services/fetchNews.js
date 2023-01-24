@@ -1,11 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { url } from "../heplers/constants";
-import { setNews } from "../store/slices/newsSlice";
 
 export const fetchNews = createAsyncThunk(
   "news/fetchNews",
-  async (_, thunkAPI) => {
+  async () => {
     const newsEesponse = await axios.get(`${url}/newstories.json`);
     const news = newsEesponse.data.slice(0, 100);
     
@@ -15,8 +14,5 @@ export const fetchNews = createAsyncThunk(
     }));
 
     return promiseResponse;
-
-    // const newsResponse = await axios.get(`${url}/item/${news[3]}.json`);
-    // console.log(newsResponse.data);
   }
 )

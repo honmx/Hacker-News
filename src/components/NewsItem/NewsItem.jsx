@@ -2,7 +2,6 @@ import { Avatar, Paper, Stack, Box, Typography, Container } from "@mui/material"
 import React from "react"
 import { NavLink } from "react-router-dom";
 import { getTimeDifference } from "../../heplers/getTimeDifference";
-import s from "./NewsItem.module.css"
 
 const NewsItem = ({ news }) => {
 
