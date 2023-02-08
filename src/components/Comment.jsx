@@ -11,11 +11,6 @@ const Comment = (props) => {
   const [childrenComments, setChildrenComments] = useState([]);
 
   if (props.deleted) return null;
-  
-  const text = props.text
-    .replace(/&#?(\w+);/gi, (match) => convert(match))
-    .replace(/<(\w+)\/?>/g, " ")
-    .replace(/  /g, " ");
 
   const handleClick = () => {
     fetch(props.kids)
@@ -42,9 +37,7 @@ const Comment = (props) => {
         <Typography>{props.by}</Typography>
       </Stack>
       <Box sx={{display: "flex"}}>
-        <Typography sx={{flexWrap: "wrap"}}>
-          {text}
-        </Typography>
+        <Typography sx={{flexWrap: "wrap"}} dangerouslySetInnerHTML={{__html: props.text}} />
       </Box>
       {
         !props.deleted &&
