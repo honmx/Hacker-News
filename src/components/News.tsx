@@ -1,19 +1,21 @@
-import { Stack, Paper, IconButton, Box, Typography, Avatar, Link } from "@mui/material";
+import { Stack, Paper, IconButton, Typography, Avatar, Link } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh"
-import React from "react"
+import React, { FC } from "react"
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../services/fetchComments";
 import Comments from "./Comments";
+import { useAppDispatch, useAppSelector } from "store/hook";
+import { INews } from "types/News";
 
-const News = ({ news }) => {
+const News: FC = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const comments = useSelector(state => state.news.currentPageComments);
+  const news = useAppSelector(state => state.news.currentPage) as INews;
+  const comments = useAppSelector(state => state.news.currentPageComments);
 
-  useEffect(() => {
-    dispatch(fetchComments(news.kids));
+  useEffect(() => {    
+    if (news.kids) dispatch(fetchComments(news.kids));
   }, [dispatch, news.kids]);
 
   return (
@@ -60,7 +62,9 @@ const News = ({ news }) => {
           sx={{ alignItems: "center" }}
         >
           <IconButton
-            onClick={() => dispatch(fetchComments(news.kids))}
+            onClick={() => {
+              if (news.kids) dispatch(fetchComments(news.kids))
+            }}
             sx={{
               width: 50,
               height: 50

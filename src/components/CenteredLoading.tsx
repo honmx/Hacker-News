@@ -1,7 +1,7 @@
-import React from "react"
+import React, { FC } from "react"
 import { CircularProgress, Box } from "@mui/material";
 
-const CenteredLoading = (props) => {
+const CenteredLoading: FC = () => {
   return (
     <Box sx={{
         marginInline: "auto !important",

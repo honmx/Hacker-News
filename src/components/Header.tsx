@@ -1,7 +1,7 @@
 import React from "react"
 import { AppBar, Typography } from "@mui/material";
 
-const Header = (props) => {
+const Header = () => {
   return (
     <header>
       <AppBar

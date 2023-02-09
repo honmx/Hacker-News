@@ -1,9 +1,14 @@
 import { Avatar, Paper, Stack, Box, Typography, Container } from "@mui/material";
-import React from "react"
+import React, { FC } from "react"
 import { NavLink } from "react-router-dom";
-import { getTimeDifference } from "../heplers/getTimeDifference";
+import { INews } from "types/News";
+import getTimeDifference from "../heplers/getTimeDifference";
 
-const NewsItem = ({ news }) => {
+interface Props {
+  news: INews
+}
+
+const NewsItem: FC<Props> = ({ news }) => {
 
   const timeDifference = getTimeDifference(new Date().getTime(), news.time * 1000);
 

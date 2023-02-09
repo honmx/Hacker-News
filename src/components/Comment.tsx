@@ -1,19 +1,21 @@
 import { Avatar, ListItem, ListItemButton, Typography, Box, Stack } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
-import React from "react"
+import React, { FC } from "react"
 import { useState } from "react";
-import { convert } from "../heplers/convert";
 import { fetch } from "../services/fetchComments";
 import Comments from "./Comments";
+import { IComment } from "types/Comment";
 
-const Comment = (props) => {
+interface Props {
+  comment: IComment;
+}
 
-  const [childrenComments, setChildrenComments] = useState([]);
+const Comment: FC<Props> = ({ comment }) => {
 
-  if (props.deleted) return null;
+  const [childrenComments, setChildrenComments] = useState<IComment[]>([]);
 
   const handleClick = () => {
-    fetch(props.kids)
+    fetch(comment.kids as number[])
       .then(res => setChildrenComments(res));
   }
 
@@ -34,19 +36,18 @@ const Comment = (props) => {
         }}
       >
         <Avatar />
-        <Typography>{props.by}</Typography>
+        <Typography>{comment.by}</Typography>
       </Stack>
       <Box sx={{display: "flex"}}>
-        <Typography sx={{flexWrap: "wrap"}} dangerouslySetInnerHTML={{__html: props.text}} />
+        <Typography sx={{flexWrap: "wrap"}} dangerouslySetInnerHTML={{__html: comment.text}} />
       </Box>
       {
-        !props.deleted &&
-        props.kids &&
+        comment.kids &&
         <ListItemButton
           onClick={handleClick}
           sx={{ p: 0.3, ml: 2 }}
         >
-          {props.kids.length === 1 ? `1 reply` : `${props.kids.length} replies`}
+          {comment.kids.length === 1 ? `1 reply` : `${comment.kids.length} replies`}
           <ArrowDropDownIcon />
         </ListItemButton>
       }

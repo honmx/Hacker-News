@@ -1,28 +1,22 @@
 import React, { useEffect } from "react"
 import NewsList from "../components/NewsList";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../services/fetchNews";
-import { setComments, setCurrentPage } from "../store/slices/newsSlice";
-import { IconButton, Container } from "@mui/material";
+import { IconButton, Container, Typography } from "@mui/material";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SearchBar from "../components/SearchBar";
 import { Box } from "@mui/system";
 import CenteredLoading from "../components/CenteredLoading";
+import { useAppDispatch, useAppSelector } from "store/hook";
 
-const NewListPage = (props) => {
+const NewListPage = () => {
 
-  const dispatch = useDispatch();
-  const news = useSelector(state => state.news.news);
-  const status = useSelector(state => state.news.newsStatus);
+  const dispatch = useAppDispatch();
+  const news = useAppSelector(state => state.news.news);
+  const status = useAppSelector(state => state.news.newsStatus);
 
   const [filter, setFilter] = useState("");
   const [filteredNews, setFilteredNews] = useState(news);
-
-  useEffect(() => {
-    dispatch(setCurrentPage({}));
-    dispatch(setComments([]));
-  }, []);
 
   useEffect(() => {
     setFilteredNews(news.filter(item => {
@@ -32,7 +26,7 @@ const NewListPage = (props) => {
 
   if (status === "pending") return <CenteredLoading />;
 
-  if (status === "rejected") return <h1>Something went wrong</h1>;
+  if (status === "rejected") return <Typography variant="h1">Something went wrong</Typography>;
 
   if (status === "fulfilled") return (
     <Container maxWidth="md" sx={{mb: 3}}>
@@ -56,6 +50,8 @@ const NewListPage = (props) => {
       <NewsList news={filteredNews}/>
     </Container>
   )
+
+  return null;
 };
 
 export default NewListPage;

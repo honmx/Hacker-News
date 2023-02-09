@@ -1,18 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IComment } from "types/Comment";
 import { fetchComments } from "../../services/fetchComments";
 import { fetchNews } from "../../services/fetchNews";
 import { fetchNewsById } from "../../services/fetchNewsById";
+import { INews } from "../../types/News";
+
+type Status = "pending" | "fulfilled" | "rejected" | null;
+
+interface IInitialState {
+  news: INews[];
+  newsStatus: Status;
+  currentPage: INews | {};
+  currentPageStatus: Status;
+  currentPageComments: IComment[];
+  currentPageCommentsStatus: Status;
+}
+
+const initialState: IInitialState = {
+  news: [],
+  newsStatus: null,
+  currentPage: {},
+  currentPageStatus: null,
+  currentPageComments: [],
+  currentPageCommentsStatus: null
+}
 
 export const newsSlice = createSlice({
   name: "news",
-  initialState: {
-    news: [],
-    newsStatus: "",
-    currentPage: {},
-    currentPageStatus: "",
-    currentPageComments: [],
-    currentPageCommentsStatus: ""
-  },
+  initialState,
   reducers: {
     setComments(state, action) {
       state.currentPageComments = action.payload;
@@ -46,8 +61,11 @@ export const newsSlice = createSlice({
       state.currentPageCommentsStatus = "fulfilled";
       state.currentPageComments = action.payload;
     });
-    builder.addCase(fetchComments.pending, (state, action) => {
+    builder.addCase(fetchComments.pending, (state) => {
       state.currentPageCommentsStatus = "pending";
+    });
+    builder.addCase(fetchComments.rejected, (state) => {
+      state.currentPageCommentsStatus = "rejected";
     });
   }
 });

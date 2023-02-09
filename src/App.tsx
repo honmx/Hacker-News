@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "./services/fetchNews";
 import NewsListPage from "./pages/NewsListPage";
 import NewsPage from "./pages/NewsPage";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import "./App.css";
+import { useAppDispatch } from "./store/hook";
 
 // id of news with a lot comments to test: 34475743;
 
-const App = (props) => {
+const App = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchNews());

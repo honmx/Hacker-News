@@ -1,7 +1,12 @@
 import { TextField, Container } from "@mui/material";
-import React from "react"
+import React, { FC } from "react"
 
-const SearchBar = ({ filter, setFilter}) => {
+interface Props {
+  filter: any;
+  setFilter: any;
+}
+
+const SearchBar: FC<Props> = ({ filter, setFilter}) => {
   return (
     <Container maxWidth="sm">
       <TextField 

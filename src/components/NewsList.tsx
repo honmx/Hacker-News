@@ -1,8 +1,13 @@
 import { Stack } from "@mui/system";
-import React from "react"
+import React, {FC} from "react"
+import { INews } from "types/News";
 import NewsItem from "./NewsItem";
 
-const NewsList = ({ news }) => {
+interface Props {
+  news: INews[]
+}
+
+const NewsList: FC<Props> = ({ news }) => {
   return (
     <Stack
       spacing={2}
